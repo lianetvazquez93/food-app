@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import SearchBar from "../components/SearchBar";
 import yelp from "../api/yelp";
@@ -8,12 +8,12 @@ const SearchScreen = () => {
   const [results, setResults] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const searchApi = async () => {
+  const searchApi = async (searchTerm) => {
     try {
       const { data } = await yelp.get("/search", {
         params: {
           limit: 50,
-          term,
+          term: searchTerm,
           location: "berlin",
         },
       });
@@ -23,9 +23,17 @@ const SearchScreen = () => {
     }
   };
 
+  useEffect(() => {
+    searchApi("pasta");
+  }, []);
+
   return (
     <View>
-      <SearchBar term={term} onTermChange={setTerm} onTermSubmit={searchApi} />
+      <SearchBar
+        term={term}
+        onTermChange={setTerm}
+        onTermSubmit={() => searchApi(term)}
+      />
       {errorMessage ? <Text>{errorMessage}</Text> : null}
       <Text>We have found {results.length} results</Text>
     </View>
