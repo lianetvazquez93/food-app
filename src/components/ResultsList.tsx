@@ -10,11 +10,7 @@ import { withNavigation } from "react-navigation";
 import ResultsDetail from "./ResultsDetail";
 
 const ResultsList = ({ title, results, navigation }) => {
-  if (!results.length) {
-    return null;
-  }
-
-  return (
+  return results.length ? (
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
       <FlatList
@@ -35,7 +31,7 @@ const ResultsList = ({ title, results, navigation }) => {
         }}
       />
     </View>
-  );
+  ) : null;
 };
 
 const styles = StyleSheet.create({

@@ -1,9 +1,10 @@
 import React from "react";
 import { View, Text, FlatList, Image, StyleSheet } from "react-native";
 import useSelectedResult from "../hooks/useSelectedResult";
+import { Result } from "../hooks/useSelectedResult";
 
 const ResultsShowScreen = ({ navigation }) => {
-  const result = useSelectedResult(navigation.getParam("id"));
+  const result: Result | null = useSelectedResult(navigation.getParam("id"));
 
   return result ? (
     <View>
