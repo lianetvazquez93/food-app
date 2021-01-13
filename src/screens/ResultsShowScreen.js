@@ -1,25 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { View, Text, FlatList, Image, StyleSheet } from "react-native";
-import yelp from "../api/yelp";
+import useSelectedResult from "../hooks/useSelectedResult";
 
 const ResultsShowScreen = ({ navigation }) => {
-  const [result, setResult] = useState(null);
-  const id = navigation.getParam("id");
+  const result = useSelectedResult(navigation.getParam("id"));
 
-  const getResult = async (id) => {
-    const response = await yelp.get(`/${id}`);
-    setResult(response.data);
-  };
-
-  useEffect(() => {
-    getResult(id);
-  }, []);
-
-  if (!result) {
-    return null;
-  }
-
-  return (
+  return result ? (
     <View>
       <Text style={styles.text}>{result.name}</Text>
       <FlatList
@@ -30,7 +16,7 @@ const ResultsShowScreen = ({ navigation }) => {
         }}
       />
     </View>
-  );
+  ) : null;
 };
 
 const styles = StyleSheet.create({
