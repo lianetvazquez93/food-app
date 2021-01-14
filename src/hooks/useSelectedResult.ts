@@ -14,12 +14,12 @@ export interface Result {
 export default (id: string) => {
   const [result, setResult] = useState<Result | null>(null);
 
-  const getResult = async (id: string): Promise<void> => {
-    const response = await yelp.get(`/${id}`);
-    setResult(response.data);
-  };
-
   useEffect(() => {
+    const getResult = async (id: string): Promise<void> => {
+      const response = await yelp.get(`/${id}`);
+      setResult(response.data);
+    };
+
     getResult(id);
   }, []);
 

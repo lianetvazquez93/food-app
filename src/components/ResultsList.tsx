@@ -10,7 +10,7 @@ import { withNavigation } from "react-navigation";
 import ResultsDetail from "./ResultsDetail";
 
 const ResultsList = ({ title, results, navigation }) => {
-  return results.length ? (
+  return results.length > 0 ? (
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
       <FlatList

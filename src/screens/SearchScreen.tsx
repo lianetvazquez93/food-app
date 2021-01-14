@@ -3,11 +3,16 @@ import { ScrollView, Text } from "react-native";
 import useResults from "../hooks/useResults";
 import SearchBar from "../components/SearchBar";
 import ResultsList from "../components/ResultsList";
-import filterResultsByPrice from "../helpers/filterResultsByPrice";
 
 const SearchScreen = () => {
   const [term, setTerm] = useState("");
-  const [searchApi, results, errorMessage] = useResults();
+  const [
+    costEffective,
+    bitPricier,
+    bigSpender,
+    searchApi,
+    errorMessage,
+  ] = useResults();
 
   return (
     <>
@@ -18,18 +23,9 @@ const SearchScreen = () => {
       />
       {errorMessage ? <Text>{errorMessage}</Text> : null}
       <ScrollView>
-        <ResultsList
-          results={filterResultsByPrice(results, "€")}
-          title="Cost Effective"
-        />
-        <ResultsList
-          results={filterResultsByPrice(results, "€€")}
-          title="Bit Pricier"
-        />
-        <ResultsList
-          results={filterResultsByPrice(results, "€€€")}
-          title="Big Spender!"
-        />
+        <ResultsList results={costEffective} title="Cost Effective" />
+        <ResultsList results={bitPricier} title="Bit Pricier" />
+        <ResultsList results={bigSpender} title="Big Spender!" />
       </ScrollView>
     </>
   );
